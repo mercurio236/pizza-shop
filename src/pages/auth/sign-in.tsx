@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const signInForm = z.object({
@@ -16,6 +17,13 @@ export function SignIn() {
 
   async function handleSigIn(data: SignForm){
     console.log(data)
+
+    toast.success('Enviamos um email de autenticação para o seu email.', {
+        action:{
+            label:'Reenviar',
+            onClick: () =>{}
+        }
+    })
   }
 
   return (
