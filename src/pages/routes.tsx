@@ -4,6 +4,7 @@ import { SignIn } from "./auth/sign-in";
 import { AppLayout } from "./_layouts/app";
 import { AuthLayout } from "./_layouts/auth";
 import { SignUp } from "./auth/signup";
+import Orders from "./app/orders/orders";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -12,6 +13,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "/orders",
+        element: <Orders />,
       },
     ],
   },
