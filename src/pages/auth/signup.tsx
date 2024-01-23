@@ -1,41 +1,41 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import { z } from "zod";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Helmet } from 'react-helmet-async'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import { z } from 'zod'
 
 const signUpForm = z.object({
   restaurantName: z.string(),
   managerName: z.string(),
   phone: z.string(),
   email: z.string().email(),
-});
+})
 
-type SignForm = z.infer<typeof signUpForm>;
+type SignForm = z.infer<typeof signUpForm>
 
 export function SignUp() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<SignForm>();
+  } = useForm<SignForm>()
 
   async function handleSigIn(data: SignForm) {
-    console.log(data);
+    console.log(data)
 
     try {
-      toast.success("Enviamos um email de autenticação para o seu email.", {
+      toast.success('Enviamos um email de autenticação para o seu email.', {
         action: {
-          label: "Login",
+          label: 'Login',
           onClick: () => navigate('/sign-in'),
         },
-      });
+      })
     } catch (error) {
-      toast.error("Erro ao cadastrar restaurante.");
+      toast.error('Erro ao cadastrar restaurante.')
     }
   }
 
@@ -61,7 +61,7 @@ export function SignUp() {
               <Input
                 id="restaurantName"
                 type="restaurantName"
-                {...register("restaurantName")}
+                {...register('restaurantName')}
               />
             </div>
             <div className="space-y-2">
@@ -69,28 +69,28 @@ export function SignUp() {
               <Input
                 id="managerName"
                 type="managerName"
-                {...register("managerName")}
+                {...register('managerName')}
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Seu e-mail</Label>
-              <Input id="email" type="email" {...register("email")} />
+              <Input id="email" type="email" {...register('email')} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Seu celular</Label>
-              <Input id="phone" type="phone" {...register("phone")} />
+              <Input id="phone" type="phone" {...register('phone')} />
             </div>
             <Button disabled={isSubmitting} className="w-full" type="submit">
               Finalizar cadastro
             </Button>
             <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
-              Ao continuar, você concorda com nossos{" "}
+              Ao continuar, você concorda com nossos{' '}
               <a className="underline underline-offset-4" href="">
                 termos de serviço
-              </a>{" "}
+              </a>{' '}
               e
               <a className="underline underline-offset-4" href="">
-                {" "}
+                {' '}
                 politicas de privacidade
               </a>
               .
@@ -99,5 +99,5 @@ export function SignUp() {
         </div>
       </div>
     </div>
-  );
+  )
 }

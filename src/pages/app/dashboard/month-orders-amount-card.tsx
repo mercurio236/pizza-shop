@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Utensils } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Utensils } from 'lucide-react'
 
 export default function MonthOrdersAmountCard() {
   return (
@@ -11,12 +11,10 @@ export default function MonthOrdersAmountCard() {
       <CardContent className="space-y-1">
         <span className="text-2xl font-bold tracking-tight">246</span>
         <p className="text-xs text-muted-foreground">
-          <span className="text-emerald-500 dark:text-emerald-400">
-            +6% 
-          </span>
+          <span className="text-emerald-500 dark:text-emerald-400">+6%</span>
           em relação ao mês passado
         </p>
       </CardContent>
     </Card>
-  );
+  )
 }

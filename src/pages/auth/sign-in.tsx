@@ -1,34 +1,34 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { toast } from "sonner";
-import { z } from "zod";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Helmet } from 'react-helmet-async'
+import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
+import { toast } from 'sonner'
+import { z } from 'zod'
 
 const signInForm = z.object({
   email: z.string().email(),
-});
+})
 
-type SignForm = z.infer<typeof signInForm>;
+type SignForm = z.infer<typeof signInForm>
 
 export function SignIn() {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<SignForm>();
+  } = useForm<SignForm>()
 
   async function handleSigIn(data: SignForm) {
-    console.log(data);
+    console.log(data)
 
-    toast.success("Enviamos um email de autenticação para o seu email.", {
+    toast.success('Enviamos um email de autenticação para o seu email.', {
       action: {
-        label: "Reenviar",
+        label: 'Reenviar',
         onClick: () => {},
       },
-    });
+    })
   }
 
   return (
@@ -50,7 +50,7 @@ export function SignIn() {
           <form onSubmit={handleSubmit(handleSigIn)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Seu e-mail</Label>
-              <Input id="email" type="email" {...register("email")} />
+              <Input id="email" type="email" {...register('email')} />
             </div>
             <Button disabled={isSubmitting} className="w-full" type="submit">
               Acessar Painel
@@ -59,5 +59,5 @@ export function SignIn() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Building, ChevronDown, LogOut } from "lucide-react";
-import { Button } from "./ui/button";
+import { Building, ChevronDown, LogOut } from 'lucide-react'
+import { Button } from './ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from './ui/dropdown-menu'
 
 export default function AccountMenu() {
   return (
@@ -24,18 +24,20 @@ export default function AccountMenu() {
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
           <span>Arley Souto</span>
-          <span className="text-xs font-normal text-muted-foreground">arley.souto@hotmail.com</span>
+          <span className="text-xs font-normal text-muted-foreground">
+            arley.souto@hotmail.com
+          </span>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator/>
+        <DropdownMenuSeparator />
         <DropdownMenuItem>
-            <Building className="w-4 h-4 mr-2"/>
-            <span>Perfil da loja</span>
+          <Building className="mr-2 h-4 w-4" />
+          <span>Perfil da loja</span>
         </DropdownMenuItem>
         <DropdownMenuItem className=" text-rose-500 dark:text-rose-400">
-            <LogOut className="w-4 h-4 mr-2"/>
-            <span>Sair</span>
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>Sair</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

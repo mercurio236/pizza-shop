@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Utensils } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Utensils } from 'lucide-react'
 
 export default function DayOrdersAmountCard() {
   return (
@@ -16,5 +16,5 @@ export default function DayOrdersAmountCard() {
         </p>
       </CardContent>
     </Card>
-  );
+  )
 }

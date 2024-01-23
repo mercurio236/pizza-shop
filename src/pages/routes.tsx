@@ -1,39 +1,39 @@
-import { createBrowserRouter } from "react-router-dom";
-import { Dashboard } from "./app/dashboard/dashboard";
-import { SignIn } from "./auth/sign-in";
-import { AppLayout } from "./_layouts/app";
-import { AuthLayout } from "./_layouts/auth";
-import { SignUp } from "./auth/signup";
-import Orders from "./app/orders/orders";
-import NotFound from "./404";
+import { createBrowserRouter } from 'react-router-dom'
+import { Dashboard } from './app/dashboard/dashboard'
+import { SignIn } from './auth/sign-in'
+import { AppLayout } from './_layouts/app'
+import { AuthLayout } from './_layouts/auth'
+import { SignUp } from './auth/signup'
+import Orders from './app/orders/orders'
+import NotFound from './404'
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <AppLayout />,
-    errorElement: <NotFound/>,
+    errorElement: <NotFound />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Dashboard />,
       },
       {
-        path: "/orders",
+        path: '/orders',
         element: <Orders />,
       },
     ],
   },
   {
-    path: "/",
+    path: '/',
     element: <AuthLayout />,
     children: [
       {
-        path: "sign-in",
+        path: 'sign-in',
         element: <SignIn />,
       },
       {
-        path: "sign-up",
+        path: 'sign-up',
         element: <SignUp />,
       },
     ],
   },
-]);
+])

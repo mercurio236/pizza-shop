@@ -4,12 +4,12 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { BarChart } from "lucide-react";
+} from '@/components/ui/card'
+import { BarChart } from 'lucide-react'
 
-import { ResponsiveContainer, PieChart, Pie, Tooltip, Cell } from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Tooltip, Cell } from 'recharts'
 
-import colors from "tailwindcss/colors";
+import colors from 'tailwindcss/colors'
 
 const COLORS = [
   colors.sky[500],
@@ -17,15 +17,15 @@ const COLORS = [
   colors.violet[500],
   colors.emerald[500],
   colors.rose[500],
-];
+]
 
 const data = [
-  { product: "Peperoni", amount: 120 },
-  { product: "Marguerita", amount: 130 },
-  { product: "Calebrasa", amount: 140 },
-  { product: "Quatro queijos", amount: 150 },
-  { product: "Frango", amount: 160 },
-];
+  { product: 'Peperoni', amount: 120 },
+  { product: 'Marguerita', amount: 130 },
+  { product: 'Calebrasa', amount: 140 },
+  { product: 'Quatro queijos', amount: 150 },
+  { product: 'Frango', amount: 160 },
+]
 
 export default function PopularProductsChat() {
   return (
@@ -60,25 +60,25 @@ export default function PopularProductsChat() {
                 value,
                 index,
               }) => {
-                const RADIAN = Math.PI / 180;
-                const radius = 12 + innerRadius + (outerRadius - innerRadius);
-                const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                const RADIAN = Math.PI / 180
+                const radius = 12 + innerRadius + (outerRadius - innerRadius)
+                const x = cx + radius * Math.cos(-midAngle * RADIAN)
+                const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
                 return (
                   <text
                     x={x}
                     y={y}
                     className="fill-muted-foreground text-xs"
-                    textAnchor={x > cx ? "start" : "end"}
+                    textAnchor={x > cx ? 'start' : 'end'}
                     dominantBaseline="central"
                   >
                     {data[index].product.length > 12
-                      ? data[index].product.substring(0, 12).concat("...")
-                      : data[index].product}{" "}
+                      ? data[index].product.substring(0, 12).concat('...')
+                      : data[index].product}{' '}
                     ({value})
                   </text>
-                );
+                )
               }}
             >
               {data.map((_, i) => {
@@ -88,12 +88,12 @@ export default function PopularProductsChat() {
                     fill={COLORS[i]}
                     className="stroke-background hover:opacity-80"
                   />
-                );
+                )
               })}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
       </CardContent>
     </Card>
-  );
+  )
 }
