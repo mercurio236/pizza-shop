@@ -19,12 +19,14 @@ export default function AccountMenu() {
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
+    staleTime: Infinity, // staleTime aqui eu consigo colocar um tempo que esse informação se tornou obsoleta, o Infinit não deixa a tela recarregar ao pegar focus ou seja os dados não são atualizado com frequencia
   })
 
   const { data: manegedRestaurant, isLoading: isLoadingManagerRestaurant } =
     useQuery({
       queryKey: ['managed-restaurant'],
       queryFn: getManagerRestaurant,
+      staleTime: Infinity,
     })
 
   return (

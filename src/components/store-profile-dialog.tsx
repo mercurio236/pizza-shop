@@ -1,5 +1,6 @@
 import { DialogDescription } from '@radix-ui/react-dialog'
 import {
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -9,11 +10,13 @@ import { Button } from './ui/button'
 import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { getManagerRestaurant } from '@/api/get-maneged-restaurant'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { updateProfile } from '@/api/update-profile'
+import { toast } from 'sonner'
 
 const storeProfileSchema = z.object({
   name: z.string().min(1),
@@ -26,18 +29,37 @@ export function StoreProfileDialog() {
   const { data: manegedRestaurant } = useQuery({
     queryKey: ['managed-restaurant'],
     queryFn: getManagerRestaurant,
+    staleTime: Infinity,
   })
 
-  const { register, handleSubmit } = useForm<StoreProfileSchema>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<StoreProfileSchema>({
     resolver: zodResolver(storeProfileSchema),
     values: {
+      // values está usando porque ele monitora a mundaça de dados
       name: manegedRestaurant?.name ?? '',
       description: manegedRestaurant?.description ?? '',
     },
   })
 
-  function handleSubmitData(data: StoreProfileSchema) {
-    console.log(data)
+  const { mutateAsync: updateProfileFn } = useMutation({
+    mutationFn: updateProfile,
+  })
+
+  async function handleUpdateProfile(data: StoreProfileSchema) {
+    try {
+      updateProfileFn({
+        name: data.name,
+        description: data.description,
+      })
+
+      toast.success('Perfil atualizado com sucesso.')
+    } catch (error) {
+      toast.error('Falha ao atualizar o perfil, tente novamente.')
+    }
   }
 
   return (
@@ -49,7 +71,7 @@ export function StoreProfileDialog() {
         </DialogDescription>
       </DialogHeader>
 
-      <form onSubmit={handleSubmit(handleSubmitData)}>
+      <form onSubmit={handleSubmit(handleUpdateProfile)}>
         <div className="space-y-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="name">
@@ -69,10 +91,12 @@ export function StoreProfileDialog() {
           </div>
         </div>
         <DialogFooter>
-          <Button variant="ghost" type="button">
-            Cancelar
-          </Button>
-          <Button type="submit" variant="success">
+          <DialogClose asChild>
+            <Button variant="ghost" type="button">
+              Cancelar
+            </Button>
+          </DialogClose>
+          <Button type="submit" variant="success" disabled={isSubmitting}>
             Salvar
           </Button>
         </DialogFooter>
