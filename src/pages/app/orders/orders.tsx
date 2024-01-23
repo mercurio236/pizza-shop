@@ -17,6 +17,10 @@ import { z } from 'zod'
 export default function Orders() {
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const orderId = searchParams.get('orderId')
+  const customerName = searchParams.get('customerName')
+  const status = searchParams.get('status')
+
   const pageIndex = z.coerce
     .number()
     .transform((page) => page - 1)
@@ -26,8 +30,14 @@ export default function Orders() {
     // se for feito uma requisição na aplicação e essa requisição tiver a chave igual a outra requisição a outra requisição que já foi feita
     // não vai ser feito, vai ser aproveitado os dados que já existiam ali.
     // Todas vez que a função de query dependa de algum paramentro, esse paramentro precisa ser incluindo na queryKey
-    queryKey: ['orders', pageIndex],
-    queryFn: () => getOrders({ pageIndex }),
+    queryKey: ['orders', pageIndex, orderId, customerName, status],
+    queryFn: () =>
+      getOrders({
+        pageIndex,
+        customerName,
+        orderId,
+        status: status === 'all' ? null : status,
+      }),
   })
 
   function handlePaginate(pageIndex: number) {
