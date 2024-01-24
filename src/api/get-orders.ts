@@ -31,10 +31,11 @@ export async function getOrders({
   const response = await api.get<GetOrdersResponse>('/orders', {
     params: {
       pageIndex,
-      customerName,
       orderId,
+      customerName,
       status,
     },
   })
+
   return response.data
 }

@@ -11,7 +11,10 @@ import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getManagerRestaurant } from '@/api/get-maneged-restaurant'
+import {
+  GetManagerRestaurantResponse,
+  getManagerRestaurant,
+} from '@/api/get-maneged-restaurant'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -48,17 +51,22 @@ export function StoreProfileDialog() {
   })
 
   function updateManagedRestaurantCache({
-    name,
     description,
+    name,
   }: StoreProfileSchema) {
-    const cached = queryClient.getQueryData(['managed-restaurant'])
+    const cached = queryClient.getQueryData<GetManagerRestaurantResponse>([
+      'managed-restaurant',
+    ])
     // dessa forma é possivel atualizar as informações do cache
     if (cached) {
-      queryClient.setQueryData(['managed-restaurant'], {
-        ...cached,
-        name,
-        description,
-      })
+      queryClient.setQueryData<GetManagerRestaurantResponse>(
+        ['managed-restaurant'],
+        {
+          ...cached,
+          name,
+          description,
+        },
+      )
     }
 
     return { cached }
@@ -66,9 +74,9 @@ export function StoreProfileDialog() {
 
   const { mutateAsync: updateProfileFn } = useMutation({
     mutationFn: updateProfile,
-    onMutate({ name, description }) {
+    onMutate({ description, name }) {
       // dispara a alteração no momento que ela é feita diferente do onSuccess que tem um delay
-      const { cached } = updateManagedRestaurantCache({ name, description })
+      const { cached } = updateManagedRestaurantCache({ description, name })
 
       return { previousProfile: cached }
     },

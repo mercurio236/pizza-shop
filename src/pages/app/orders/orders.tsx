@@ -26,25 +26,25 @@ export default function Orders() {
     .transform((page) => page - 1)
     .parse(searchParams.get('page') ?? '1')
 
-  const { data: result } = useQuery({
-    // se for feito uma requisição na aplicação e essa requisição tiver a chave igual a outra requisição a outra requisição que já foi feita
-    // não vai ser feito, vai ser aproveitado os dados que já existiam ali.
-    // Todas vez que a função de query dependa de algum paramentro, esse paramentro precisa ser incluindo na queryKey
+  // se for feito uma requisição na aplicação e essa requisição tiver a chave igual a outra requisição a outra requisição que já foi feita
+  // não vai ser feito, vai ser aproveitado os dados que já existiam ali.
+  // Todas vez que a função de query dependa de algum paramentro, esse paramentro precisa ser incluindo na queryKey
+  const { data: result, isLoading: isLoadingOrders } = useQuery({
     queryKey: ['orders', pageIndex, orderId, customerName, status],
     queryFn: () =>
       getOrders({
         pageIndex,
-        customerName,
         orderId,
+        customerName,
         status: status === 'all' ? null : status,
       }),
   })
 
   function handlePaginate(pageIndex: number) {
-    setSearchParams((prev) => {
-      prev.set('page', (pageIndex + 1).toString())
+    setSearchParams((state) => {
+      state.set('page', (pageIndex + 1).toString())
 
-      return prev
+      return state
     })
   }
 
