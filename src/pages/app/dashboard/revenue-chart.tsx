@@ -24,6 +24,7 @@ import {
 } from 'recharts'
 
 import colors from 'tailwindcss/colors'
+import { Loader } from 'lucide-react'
 
 /* const data = [
   { date: '10/12', revenue: 1200 },
@@ -72,7 +73,7 @@ export default function RevenueChart() {
           <DatePicker date={dateRange} onDateChange={setDateRange} />
         </div>
       </CardHeader>
-      {chartData && (
+      {chartData ? (
         <CardContent>
           <ResponsiveContainer width="100%" height={240}>
             <LineChart data={chartData} style={{ fontSize: 12 }}>
@@ -99,6 +100,10 @@ export default function RevenueChart() {
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
+      ) : (
+        <div className="flex h-[240px] w-full items-center justify-center">
+          <Loader className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
       )}
     </Card>
   )
